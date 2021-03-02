@@ -612,6 +612,16 @@ impl Counter {
         self.id
     }
 
+    /// Return this counter's raw file descriptor.
+    ///
+    /// This is useful when working with APIs such as [`libbpf`] which require the
+    /// underlying file descriptor returned from `perf_event_open`.
+    ///
+    /// [`libbpf`]: https://github.com/libbpf/libbpf-rs
+    pub fn fd(&self) -> c_int {
+        self.file.as_raw_fd()
+    }
+
     /// Allow this `Counter` to begin counting its designated event.
     ///
     /// This does not affect whatever value the `Counter` had previously; new
